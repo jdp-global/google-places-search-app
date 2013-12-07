@@ -19,6 +19,8 @@
 		0C337ACB1853AC670097C898 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C337AB31853AC670097C898 /* UIKit.framework */; };
 		0C337AD31853AC670097C898 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C337AD11853AC670097C898 /* InfoPlist.strings */; };
 		0C337AD51853AC670097C898 /* GooglePlacesSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C337AD41853AC670097C898 /* GooglePlacesSearchTests.m */; };
+		0C337ADF1853B16F0097C898 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C337ADE1853B16F0097C898 /* Main.storyboard */; };
+		0C337AE21853B9540097C898 /* GPSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C337AE11853B9540097C898 /* GPSSearchViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,9 @@
 		0C337AD01853AC670097C898 /* GooglePlacesSearchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GooglePlacesSearchTests-Info.plist"; sourceTree = "<group>"; };
 		0C337AD21853AC670097C898 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0C337AD41853AC670097C898 /* GooglePlacesSearchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GooglePlacesSearchTests.m; sourceTree = "<group>"; };
+		0C337ADE1853B16F0097C898 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0C337AE01853B9540097C898 /* GPSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSSearchViewController.h; sourceTree = "<group>"; };
+		0C337AE11853B9540097C898 /* GPSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSSearchViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +116,9 @@
 				0C337ABF1853AC670097C898 /* GPSAppDelegate.m */,
 				0C337AC11853AC670097C898 /* Images.xcassets */,
 				0C337AB61853AC670097C898 /* Supporting Files */,
+				0C337ADE1853B16F0097C898 /* Main.storyboard */,
+				0C337AE01853B9540097C898 /* GPSSearchViewController.h */,
+				0C337AE11853B9540097C898 /* GPSSearchViewController.m */,
 			);
 			path = GooglePlacesSearch;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C337ADF1853B16F0097C898 /* Main.storyboard in Resources */,
 				0C337ABA1853AC670097C898 /* InfoPlist.strings in Resources */,
 				0C337AC21853AC670097C898 /* Images.xcassets in Resources */,
 			);
@@ -240,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C337AE21853B9540097C898 /* GPSSearchViewController.m in Sources */,
 				0C337ABC1853AC670097C898 /* main.m in Sources */,
 				0C337AC01853AC670097C898 /* GPSAppDelegate.m in Sources */,
 			);
