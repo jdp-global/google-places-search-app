@@ -1,5 +1,6 @@
 .DS_Store
 Pods/
+placeholder_icon.png
 
 # Xcode
 build/*

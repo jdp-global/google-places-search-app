@@ -9,6 +9,7 @@
 #import "GPSResultsTableViewController.h"
 #import "GPSResult.h"
 #import "GPSResultsCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface GPSResultsTableViewController ()
 @property (retain, nonatomic) NSMutableArray* resultSet;
@@ -34,7 +35,7 @@
     GPSResult* resultObject = [[GPSResult alloc] init];
     resultObject.name = @"name";
     resultObject.rating = [[NSDecimalNumber alloc] initWithDouble:3.3];
-    resultObject.iconUrl = [[NSURL alloc] initFileURLWithPath:@"http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"];
+    resultObject.iconUrl = [NSURL URLWithString:@"http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"];
     resultObject.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
     
     [resultSet addObject:resultObject];
@@ -77,9 +78,15 @@
     cell.name.text = resultObj.name;
     cell.rating.text = [NSString stringWithFormat:@"%.1lf", [resultObj.rating doubleValue]];
     cell.distance.text = [NSString stringWithFormat:@"%.1lf", [resultObj.distance doubleValue]];
-    NSData* imageData = [NSData dataWithContentsOfURL:resultObj.iconUrl];
+//    NSData* imageData = [NSData dataWithContentsOfURL:resultObj.iconUrl];
     
-    cell.imageView.image = [UIImage imageWithData:imageData];
+//    cell.imageView.image = [UIImage imageWithData:imageData];
+    NSURL* imageUrl = [resultObj iconUrl];
+    CGSize destinationSize = CGSizeMake(80.0, 80.0);
+    //    UIImageView* cellImageView = [[UIImageView alloc] init];
+    [cell.imageView setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_icon"]];
+    [cell.imageView drawInRect:CGRectMake(0, 0, destinationSize.width, destinationSize.height)];
+//     = cellImageView;
     
     return cell;
 }
