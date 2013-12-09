@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GPSResultsTableViewController : UITableViewController
+@interface GPSResultsTableViewController : UITableViewController <UITableViewDelegate>
 
 @end

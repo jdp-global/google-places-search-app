@@ -78,18 +78,23 @@
     cell.name.text = resultObj.name;
     cell.rating.text = [NSString stringWithFormat:@"%.1lf", [resultObj.rating doubleValue]];
     cell.distance.text = [NSString stringWithFormat:@"%.1lf", [resultObj.distance doubleValue]];
-//    NSData* imageData = [NSData dataWithContentsOfURL:resultObj.iconUrl];
-    
-//    cell.imageView.image = [UIImage imageWithData:imageData];
+
     NSURL* imageUrl = [resultObj iconUrl];
-    CGSize destinationSize = CGSizeMake(80.0, 80.0);
-    //    UIImageView* cellImageView = [[UIImageView alloc] init];
+
     [cell.imageView setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_icon"]];
-    [cell.imageView drawInRect:CGRectMake(0, 0, destinationSize.width, destinationSize.height)];
-//     = cellImageView;
     
     return cell;
 }
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
 
 /*
 // Override to support conditional editing of the table view.
