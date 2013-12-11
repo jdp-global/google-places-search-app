@@ -13,7 +13,7 @@
 @interface GPSHelper : NSObject
 
 +(NSURLRequest*) sendSimpleHTTPRequestFor: (NSString*)url withStringData: (NSString*)stringData;
-+(NSURLRequest*) sendSimpleHTTPRequestForUrlAddress: (NSString*)url WithLatitude: (NSString*) latitude Longitude: (NSString*) longitude AndTypes: (NSArray*) types;
++(NSURLRequest*) sendSimpleHTTPRequestForPlacesWithLatitude: (NSString*)url WithLatitude: (NSString*) latitude Longitude: (NSString*) longitude AndTypes: (NSArray*) types;
 +(void) showAlertMessageWithTitle: (NSString*) title andText: (NSString*) text;
 
 @end

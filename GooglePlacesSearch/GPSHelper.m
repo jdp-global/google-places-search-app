@@ -23,7 +23,7 @@
     return request;
 }
 
-+(NSURLRequest*)sendSimpleHTTPRequestForUrlAddress: (NSString*)url WithLatitude: (NSString*) latitude Longitude: (NSString*) longitude AndTypes: (NSArray*) types {
++(NSURLRequest*)sendSimpleHTTPRequestForPlacesWithLatitude: (NSString*) latitude Longitude: (NSString*) longitude AndTypes: (NSArray*) types {
     if ([latitude length] == 0 || [longitude length] == 0) {
         [NSException raise:@"Invalid location provided" format:@"Please switch your GPS!"];
     }
