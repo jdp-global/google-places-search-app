@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GPSSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GPSSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchField;
