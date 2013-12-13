@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GPSResultsCell.h"
 
 @interface GPSResultsTableViewController : UITableViewController <UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
+@property (retain, nonatomic) NSMutableArray* resultSet;
 @end

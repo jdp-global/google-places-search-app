@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 
 @interface GPSResultsTableViewController ()
-@property (retain, nonatomic) NSMutableArray* resultSet;
+
 @end
 
 @implementation GPSResultsTableViewController
@@ -25,20 +25,28 @@
     }
     return self;
 }
-
+-(void)setResultSet:(NSMutableArray *)result
+{
+    if (resultSet != result) {
+        resultSet = result;
+        
+        // Update the view.
+        [self.tableView reloadData];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    resultSet = [[NSMutableArray alloc] init];
-    
-    GPSResult* resultObject = [[GPSResult alloc] init];
-    resultObject.name = @"name";
-    resultObject.rating = [[NSDecimalNumber alloc] initWithDouble:3.3];
-    resultObject.iconUrl = [NSURL URLWithString:@"http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"];
-    resultObject.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
-    
-    [resultSet addObject:resultObject];
+//    resultSet = [[NSMutableArray alloc] init];
+//    
+//    GPSResult* resultObject = [[GPSResult alloc] init];
+//    resultObject.name = @"name";
+//    resultObject.rating = [[NSDecimalNumber alloc] initWithDouble:3.3];
+//    resultObject.iconUrl = [NSURL URLWithString:@"http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"];
+//    resultObject.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
+//    
+//    [resultSet addObject:resultObject];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
