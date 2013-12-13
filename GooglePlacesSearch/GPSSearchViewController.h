@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchField;
 @property (retain, nonatomic) NSData* responseData;
-@property (retain, nonatomic) NSDictionary* data;
+@property (retain, nonatomic) NSMutableArray* data;
 - (IBAction)searchButtonTapped:(id)sender;
 
 @end

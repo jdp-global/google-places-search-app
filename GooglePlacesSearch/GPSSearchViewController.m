@@ -7,7 +7,8 @@
 //
 
 #import "GPSSearchViewController.h"
-
+#import "GPSResult.h"
+#import "GPSResultsTableViewController.h"
 
 @interface GPSSearchViewController ()
 @property (retain, nonatomic) NSArray* cellData;
@@ -21,6 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    data = [[NSMutableArray alloc] init];
     selectedCells = [[NSMutableDictionary alloc] init];
     
     cellData  = [NSArray arrayWithObjects: @"Bank", @"Coffee", @"Gym", nil];
@@ -130,7 +132,6 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -138,39 +139,44 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"submitSearch"]) {
+        NSLog(@"tes");
+        [[segue destinationViewController] setResultSet:data];
+    }
 }
 
- */
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"submitSearch"]) {
+        return NO;
+    }
+    return YES;
+}
 
 #pragma mark - UIButton handling
 
 - (IBAction)searchButtonTapped:(id)sender {
-    @try {
-        NSURLRequest* request = [GPSHelper sendSimpleHTTPRequestForPlacesWithLatitude:@"-33.8670522" Longitude:@"151.1957362" AndTypes:[NSArray arrayWithObjects:@"food", nil]];
-        [NSURLConnection connectionWithRequest:request delegate:self];
-        
-//        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//            NSLog(@"App.net Global Stream: %@", JSON);
-//        } failure:nil];
-//        [operation start];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"foo": @"bar"};
+    [manager POST:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=food&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSDictionary *parameters = @{@"foo": @"bar"};
-        [manager POST:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=food&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            data = responseObject;
-            if ([data[@"status"] isEqualToString:@"OK"]) {
-                
-                [self.tableView reloadData];
-            } else {
-
+        if ([responseObject[@"status"] isEqualToString:@"OK"]) {
+            for (id obj in responseObject[@"results"]) {
+                NSLog(@"%@", obj);
+                GPSResult *resultObj = [[GPSResult alloc] init];
+                resultObj.iconUrl = obj[@"icon"];
+                resultObj.name = obj[@"name"];
+                resultObj.rating = obj[@"rating"];
+                resultObj.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
+                [data addObject:resultObj];
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
-        }];
-    }
-    @catch (NSException *exception) {
-        [GPSHelper showAlertMessageWithTitle:@"Error sending request" andText:@"Please try again later"];
-    }
+            [self performSegueWithIdentifier:@"submitSearch" sender:self];
+        } else {
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
+    }];
+
 }
 @end
