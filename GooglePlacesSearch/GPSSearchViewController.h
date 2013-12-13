@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchField;
+@property (retain, nonatomic) NSData* responseData;
 - (IBAction)searchButtonTapped:(id)sender;
 
 @end

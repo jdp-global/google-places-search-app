@@ -11,6 +11,7 @@
 @interface GPSSearchViewController ()
 @property (retain, nonatomic) NSArray* cellData;
 @property (retain, nonatomic) NSMutableDictionary* selectedCells;
+
 @end
 
 @implementation GPSSearchViewController
@@ -141,6 +142,12 @@
  */
 
 - (IBAction)searchButtonTapped:(id)sender {
+    @try {
+        [NSURLConnection connectionWithRequest:[GPSHelper sendSimpleHTTPRequestForPlacesWithLatitude:@"-33.8670522" Longitude:@"151.1957362" AndTypes:[NSArray arrayWithObjects:@"food", nil]] delegate:self];
+    }
+    @catch (NSException *exception) {
+        [GPSHelper showAlertMessageWithTitle:@"Error sending request" andText:@"Please try again later"];
+    }
 }
 
 
@@ -150,17 +157,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // Append the new data to the instance variable you declared
     //    [responseData appendData:data];
-    NSError* error;
-    NSDictionary* jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    //    int success = [[jsonData objectForKey:@"success"] intValue];
-    //    NSArray* allKeys = [jsonData allKeys];
-    
-    if (1 > 0) {
-        
-        [self.tableView reloadData];
-    } else {
-        [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
-    }
+    self.responseData = data;
     //    [self stopAnimation];
 }
 
@@ -173,10 +170,22 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
+    NSError* error;
+    NSDictionary* jsonData = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableContainers error:&error];
+    //    int success = [[jsonData objectForKey:@"success"] intValue];
+    //    NSArray* allKeys = [jsonData allKeys];
+    
+    if (error == nil) {
+        
+        [self.tableView reloadData];
+    } else {
+        [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
+    NSLog(@"error");
 }
 @end

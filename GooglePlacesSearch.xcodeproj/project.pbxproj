@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C27FA941855168A00AE47C5 /* placeholder_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27FA931855168A00AE47C5 /* placeholder_icon.png */; };
+		0C27FA9718565E3C00AE47C5 /* GPSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27FA9618565E3C00AE47C5 /* GPSHelper.m */; };
 		0C337AB01853AC670097C898 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C337AAF1853AC670097C898 /* Foundation.framework */; };
 		0C337AB21853AC670097C898 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C337AB11853AC670097C898 /* CoreGraphics.framework */; };
 		0C337AB41853AC670097C898 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C337AB31853AC670097C898 /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		0C27FA931855168A00AE47C5 /* placeholder_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder_icon.png; sourceTree = SOURCE_ROOT; };
+		0C27FA9518565E3C00AE47C5 /* GPSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSHelper.h; sourceTree = "<group>"; };
+		0C27FA9618565E3C00AE47C5 /* GPSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSHelper.m; sourceTree = "<group>"; };
 		0C337AAC1853AC670097C898 /* GooglePlacesSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GooglePlacesSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C337AAF1853AC670097C898 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0C337AB11853AC670097C898 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,8 @@
 		0C337AB51853AC670097C898 /* GooglePlacesSearch */ = {
 			isa = PBXGroup;
 			children = (
+				0C27FA9518565E3C00AE47C5 /* GPSHelper.h */,
+				0C27FA9618565E3C00AE47C5 /* GPSHelper.m */,
 				0C337ADE1853B16F0097C898 /* Main.storyboard */,
 				0C337AED1853D8460097C898 /* Models */,
 				0C337AE91853D34B0097C898 /* Cells */,
@@ -325,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C27FA9718565E3C00AE47C5 /* GPSHelper.m in Sources */,
 				0C337AE21853B9540097C898 /* GPSSearchViewController.m in Sources */,
 				0C337AE81853D2CB0097C898 /* GPSResultsTableViewController.m in Sources */,
 				0C337ABC1853AC670097C898 /* main.m in Sources */,
