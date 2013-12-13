@@ -8,6 +8,7 @@
 
 #import "GPSSearchViewController.h"
 
+
 @interface GPSSearchViewController ()
 @property (retain, nonatomic) NSArray* cellData;
 @property (retain, nonatomic) NSMutableDictionary* selectedCells;
@@ -15,7 +16,7 @@
 @end
 
 @implementation GPSSearchViewController
-@synthesize cellData, selectedCells;
+@synthesize cellData, selectedCells, data;
 
 - (void)viewDidLoad
 {
@@ -141,51 +142,35 @@
 
  */
 
+#pragma mark - UIButton handling
+
 - (IBAction)searchButtonTapped:(id)sender {
     @try {
-        [NSURLConnection connectionWithRequest:[GPSHelper sendSimpleHTTPRequestForPlacesWithLatitude:@"-33.8670522" Longitude:@"151.1957362" AndTypes:[NSArray arrayWithObjects:@"food", nil]] delegate:self];
+        NSURLRequest* request = [GPSHelper sendSimpleHTTPRequestForPlacesWithLatitude:@"-33.8670522" Longitude:@"151.1957362" AndTypes:[NSArray arrayWithObjects:@"food", nil]];
+        [NSURLConnection connectionWithRequest:request delegate:self];
+        
+//        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//            NSLog(@"App.net Global Stream: %@", JSON);
+//        } failure:nil];
+//        [operation start];
+
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSDictionary *parameters = @{@"foo": @"bar"};
+        [manager POST:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=food&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            data = responseObject;
+            if ([data[@"status"] isEqualToString:@"OK"]) {
+                
+                [self.tableView reloadData];
+            } else {
+
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
+        }];
     }
     @catch (NSException *exception) {
         [GPSHelper showAlertMessageWithTitle:@"Error sending request" andText:@"Please try again later"];
     }
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    //    [responseData appendData:data];
-    self.responseData = data;
-    //    [self stopAnimation];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    NSError* error;
-    NSDictionary* jsonData = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableContainers error:&error];
-    //    int success = [[jsonData objectForKey:@"success"] intValue];
-    //    NSArray* allKeys = [jsonData allKeys];
-    
-    if (error == nil) {
-        
-        [self.tableView reloadData];
-    } else {
-        [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    NSLog(@"error");
 }
 @end
