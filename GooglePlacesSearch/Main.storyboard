@@ -24,7 +24,7 @@
                                 </state>
                                 <connections>
                                     <action selector="searchButtonTapped:" destination="Q7d-XF-sgz" eventType="touchUpInside" id="50f-sB-eVr"/>
-                                    <segue destination="uCh-Tc-Yhf" kind="push" id="rzG-do-ohS"/>
+                                    <segue destination="uCh-Tc-Yhf" kind="push" identifier="submitSearch" id="rzG-do-ohS"/>
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kf1-5J-4gz">
@@ -86,19 +86,19 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAo-us-na4">
-                                            <rect key="frame" x="241" y="14" width="46" height="21"/>
+                                            <rect key="frame" x="108" y="14" width="179" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osQ-dn-o4F">
-                                            <rect key="frame" x="220" y="43" width="67" height="21"/>
+                                            <rect key="frame" x="108" y="43" width="179" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqr-G4-8yd">
-                                            <rect key="frame" x="237" y="72" width="50" height="21"/>
+                                            <rect key="frame" x="108" y="72" width="179" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
@@ -119,6 +119,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Results" id="EhA-9L-7of"/>
+                    <connections>
+                        <outlet property="tableView" destination="PBm-IG-puT" id="1yo-gK-xXa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFy-lw-Zzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
