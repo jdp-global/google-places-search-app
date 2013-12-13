@@ -32,9 +32,12 @@
     NSString* locationString = [[[@"location=" stringByAppendingString:latitude]
                                  stringByAppendingString:@","]
                                  stringByAppendingString:longitude];
-    NSString* data = [[locationString stringByAppendingString:@"&rankby=distance&sensor=false"]
-                      stringByAppendingString:typesString];
-    return [self sendSimpleHTTPRequestFor:@"place/nearbysearch/json?" withStringData:data];
+    NSString* data = [[[locationString stringByAppendingString:@"&rankby=distance&sensor=false"]
+                      stringByAppendingString:typesString]
+                      stringByAppendingString:@"&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM"];
+    return [self sendSimpleHTTPRequestFor:
+            [@"place/nearbysearch/json?" stringByAppendingString:data]
+                           withStringData:@""];
 }
 
 +(void) showAlertMessageWithTitle:(NSString *)title andText:(NSString *)text {
