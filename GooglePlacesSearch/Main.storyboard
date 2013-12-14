@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bga-NU-fBk">
-                                <rect key="frame" x="137" y="518" width="46" height="30"/>
+                                <rect key="frame" x="20" y="518" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,6 +58,7 @@
                     <navigationItem key="navigationItem" title="Search" id="MgG-il-pFH"/>
                     <connections>
                         <outlet property="searchField" destination="kf1-5J-4gz" id="EkA-Yz-5AG"/>
+                        <outlet property="submitButton" destination="bga-NU-fBk" id="QSh-hF-YZC"/>
                         <outlet property="tableView" destination="jSc-6g-T39" id="IOq-b5-GZf"/>
                     </connections>
                 </viewController>
