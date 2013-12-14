@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
 
-@interface GPSSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface GPSSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchField;

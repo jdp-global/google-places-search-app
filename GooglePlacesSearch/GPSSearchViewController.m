@@ -27,6 +27,7 @@
     
     cellData  = [NSArray arrayWithObjects: @"Bank", @"Cafe", @"Gym", nil];
     self.tableView.allowsMultipleSelection = YES;
+    self.searchField.delegate = self;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -156,38 +157,88 @@
     return YES;
 }
 
+#pragma mark - UITextFieldDelegate protocol implementation
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+#pragma mark - UISearchBarDelegate protocol implementation
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    [self sendRequestToServerAndHandleResponse];
+}
+
+- (BOOL) searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+//    [self.myViewController1.customView1 setUserInteractionEnabled:NO];
+//    [self.myViewController2.customView2 setUserInteractionEnabled:NO];
+    [searchBar setShowsCancelButton:YES animated:YES];
+    return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
+}
+
 #pragma mark - UIButton handling
 
 - (IBAction)searchButtonTapped:(id)sender {
-    
+    [(UIButton*)sender resignFirstResponder];
+    [self sendRequestToServerAndHandleResponse];
+}
+
+-(void) sendRequestToServerAndHandleResponse {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{};
     NSString* types = @"";
     NSString* glue = @"";
+    NSString* name = @"";
+    
     for (id itr in selectedCells) {
         types = [types stringByAppendingString:[glue stringByAppendingString: selectedCells[itr]]];
         glue = @"%7C";
     }
-    types = [types lowercaseString];
-    NSString* url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=%@&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM", types];
-    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [data removeAllObjects];
-        if ([responseObject[@"status"] isEqualToString:@"OK"]) {
-            for (id obj in responseObject[@"results"]) {
-                GPSResult *resultObj = [[GPSResult alloc] init];
-                resultObj.iconUrl = obj[@"icon"];
-                resultObj.name = obj[@"name"];
-                resultObj.rating = obj[@"rating"];
-                resultObj.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
-                [data addObject:resultObj];
+    
+    if (![types isEqualToString:@""]) {
+        types = [types lowercaseString];
+    }
+    
+    
+    if (![self.searchField.text isEqualToString:@""]) {
+//        name = [@"&name=" stringByAppendingString:self.searchField.text];
+        name = self.searchField.text;
+    }
+    
+    if ([name isEqualToString:@""] && [types isEqualToString:@""]) {
+        [GPSHelper showAlertMessageWithTitle:@"Invalid Request" andText:@"Please select either type or type a name!"];
+    } else {
+        NSString* url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=%@&name=%@&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM",
+                         types,
+                         name];
+        [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [data removeAllObjects];
+            if ([responseObject[@"status"] isEqualToString:@"OK"]) {
+                for (id obj in responseObject[@"results"]) {
+                    GPSResult *resultObj = [[GPSResult alloc] init];
+                    resultObj.iconUrl = obj[@"icon"];
+                    resultObj.name = obj[@"name"];
+                    resultObj.rating = obj[@"rating"];
+                    resultObj.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
+                    [data addObject:resultObj];
+                }
+                [self performSegueWithIdentifier:@"submitSearch" sender:self];
+            } else {
+                [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result match given criterias, please try again!"];
             }
-            [self performSegueWithIdentifier:@"submitSearch" sender:self];
-        } else {
-
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
-    }];
-
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
+        }];
+    }
 }
 @end
