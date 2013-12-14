@@ -13,11 +13,11 @@
 @interface GPSSearchViewController ()
 @property (retain, nonatomic) NSArray* cellData;
 @property (retain, nonatomic) NSMutableDictionary* selectedCells;
-
+@property (retain) UIView *disableViewOverlay;
 @end
 
 @implementation GPSSearchViewController
-@synthesize cellData, selectedCells, data;
+@synthesize cellData, selectedCells, data, searchField, submitButton, disableViewOverlay;
 
 - (void)viewDidLoad
 {
@@ -194,6 +194,8 @@
 }
 
 -(void) sendRequestToServerAndHandleResponse {
+
+    [self disableSearchFieldsWhileSearchIsInProgress];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{};
     NSString* types = @"";
@@ -222,6 +224,7 @@
                          types,
                          name];
         [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
             [data removeAllObjects];
             if ([responseObject[@"status"] isEqualToString:@"OK"]) {
                 for (id obj in responseObject[@"results"]) {
@@ -236,9 +239,36 @@
             } else {
                 [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result match given criterias, please try again!"];
             }
+            [self enableSearchFieldsWhenSearchIsFinished];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [GPSHelper showAlertMessageWithTitle:@"No Results" andText:@"No result where sent, please try again later!"];
+            [self enableSearchFieldsWhenSearchIsFinished];
         }];
     }
+}
+
+-(void)disableSearchFieldsWhileSearchIsInProgress {
+    self.submitButton.enabled = NO;
+    CGRect frame = self.searchField.frame;
+    
+    self.disableViewOverlay = [[UIView alloc]
+                               initWithFrame:frame];
+    self.disableViewOverlay.backgroundColor=[UIColor grayColor];
+    self.disableViewOverlay.alpha = 0;
+    
+    self.disableViewOverlay.alpha = 0;
+    [self.view addSubview:self.disableViewOverlay];
+    
+    [UIView beginAnimations:@"FadeIn" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.disableViewOverlay.alpha = 0.4;
+    [UIView commitAnimations];
+}
+
+-(void)enableSearchFieldsWhenSearchIsFinished {
+    self.submitButton.enabled = YES;
+    
+    [disableViewOverlay removeFromSuperview];
+//    [self.searchField resignFirstResponder];
 }
 @end
