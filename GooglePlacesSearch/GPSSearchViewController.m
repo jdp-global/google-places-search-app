@@ -25,7 +25,7 @@
     data = [[NSMutableArray alloc] init];
     selectedCells = [[NSMutableDictionary alloc] init];
     
-    cellData  = [NSArray arrayWithObjects: @"Bank", @"Coffee", @"Gym", nil];
+    cellData  = [NSArray arrayWithObjects: @"Bank", @"Cafe", @"Gym", nil];
     self.tableView.allowsMultipleSelection = YES;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -51,7 +51,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 30;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -74,22 +74,27 @@
     return cell;
 }
 
--(UITableViewCell*)checkOrUncheckTableCell: (UITableViewCell*)thisCell {
+-(UITableViewCell*)checkOrUncheckTableCell: (UITableViewCell*)thisCell withIndex:(NSIndexPath*)indexPath {
     if (thisCell.accessoryType == UITableViewCellAccessoryCheckmark) {
         thisCell.accessoryType = UITableViewCellAccessoryNone;
+        [selectedCells removeObjectForKey:[NSString stringWithFormat:@"%d",  indexPath.row]];
     } else {
         thisCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [selectedCells setObject:thisCell.textLabel.text forKey:[NSString stringWithFormat:@"%d",  indexPath.row]];
     }
     
     return thisCell;
 }
 
+-(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *thisCell = [tableView cellForRowAtIndexPath:indexPath];
+    thisCell = [self checkOrUncheckTableCell:thisCell withIndex:indexPath];
+}
+
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *thisCell = [tableView cellForRowAtIndexPath:indexPath];
     
-    thisCell = [self checkOrUncheckTableCell:thisCell];
-    
-    [selectedCells setObject:thisCell.textLabel.text forKey:[NSString stringWithFormat:@"%d",  indexPath.row]];
+    thisCell = [self checkOrUncheckTableCell:thisCell withIndex:indexPath];
 }
 
 
@@ -140,7 +145,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([[segue identifier] isEqualToString:@"submitSearch"]) {
-        NSLog(@"tes");
         [[segue destinationViewController] setResultSet:data];
     }
 }
@@ -157,12 +161,19 @@
 - (IBAction)searchButtonTapped:(id)sender {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"foo": @"bar"};
-    [manager POST:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=food&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+    NSDictionary *parameters = @{};
+    NSString* types = @"";
+    NSString* glue = @"";
+    for (id itr in selectedCells) {
+        types = [types stringByAppendingString:[glue stringByAppendingString: selectedCells[itr]]];
+        glue = @"%7C";
+    }
+    types = [types lowercaseString];
+    NSString* url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=%@&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM", types];
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [data removeAllObjects];
         if ([responseObject[@"status"] isEqualToString:@"OK"]) {
             for (id obj in responseObject[@"results"]) {
-                NSLog(@"%@", obj);
                 GPSResult *resultObj = [[GPSResult alloc] init];
                 resultObj.iconUrl = obj[@"icon"];
                 resultObj.name = obj[@"name"];
