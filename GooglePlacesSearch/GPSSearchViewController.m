@@ -10,35 +10,57 @@
 #import "GPSResult.h"
 #import "GPSResultsTableViewController.h"
 
+
 @interface GPSSearchViewController ()
 @property (retain, nonatomic) NSArray* cellData;
 @property (retain, nonatomic) NSMutableDictionary* selectedCells;
 @property (retain) UIView *disableViewOverlay;
+@property CLLocationManager* locationManager;
+@property CLLocation* currentLocation;
 @end
 
 @implementation GPSSearchViewController
-@synthesize cellData, selectedCells, data, searchField, submitButton, disableViewOverlay;
+@synthesize cellData, selectedCells, data, searchField, submitButton, disableViewOverlay, locationManager, currentLocation;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     data = [[NSMutableArray alloc] init];
     selectedCells = [[NSMutableDictionary alloc] init];
+    currentLocation = [[CLLocation alloc] init];
     
     cellData  = [NSArray arrayWithObjects: @"Bank", @"Cafe", @"Gym", nil];
     self.tableView.allowsMultipleSelection = YES;
     self.searchField.delegate = self;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self startStandardLocationService];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)startStandardLocationService {
+    if (nil == locationManager) {
+        locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    locationManager.distanceFilter = 500;
+    
+    [locationManager startUpdatingLocation];
+
+}
+
+#pragma mark - CLLocationManagerDelegate protocol implementation
+-(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    currentLocation = [locations lastObject];
+    
+    [locationManager stopUpdatingLocation];
 }
 
 #pragma mark - Table view data source
@@ -201,6 +223,7 @@
     NSString* types = @"";
     NSString* glue = @"";
     NSString* name = @"";
+    NSString* location = @"";
     
     for (id itr in selectedCells) {
         types = [types stringByAppendingString:[glue stringByAppendingString: selectedCells[itr]]];
@@ -211,6 +234,11 @@
         types = [types lowercaseString];
     }
     
+    if (currentLocation != nil) {
+        location = [NSString stringWithFormat:@"%.6f,%.6f",
+                    currentLocation.coordinate.latitude,
+                    currentLocation.coordinate.longitude];
+    }
     
     if (![self.searchField.text isEqualToString:@""]) {
 //        name = [@"&name=" stringByAppendingString:self.searchField.text];
@@ -219,8 +247,10 @@
     
     if ([name isEqualToString:@""] && [types isEqualToString:@""]) {
         [GPSHelper showAlertMessageWithTitle:@"Invalid Request" andText:@"Please select either type or type a name!"];
+        [self enableSearchFieldsWhenSearchIsFinished];
     } else {
-        NSString* url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&rankby=distance&sensor=false&types=%@&name=%@&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM",
+        NSString* url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%@&rankby=distance&sensor=false&types=%@&name=%@&key=AIzaSyAJs7aFhIV3pp0stOa7SWkyqlhrK8TBtLM",
+                         location,
                          types,
                          name];
         [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

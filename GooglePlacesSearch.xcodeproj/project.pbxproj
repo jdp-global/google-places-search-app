@@ -26,6 +26,8 @@
 		0C337AE81853D2CB0097C898 /* GPSResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C337AE71853D2CB0097C898 /* GPSResultsTableViewController.m */; };
 		0C337AEC1853D36A0097C898 /* GPSResultsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C337AEB1853D36A0097C898 /* GPSResultsCell.m */; };
 		0C337AF01853D85A0097C898 /* GPSResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C337AEF1853D85A0097C898 /* GPSResult.m */; };
+		0CF9D4F4185E4F7500685BA7 /* preloader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0CF9D4F3185E4F7500685BA7 /* preloader.gif */; };
+		0CF9D4F6185E580F00685BA7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF9D4F5185E580F00685BA7 /* CoreLocation.framework */; };
 		6476FD8353F14871A4213BC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 505A0BD9B5C2426DA9786437 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +70,8 @@
 		0C337AEB1853D36A0097C898 /* GPSResultsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSResultsCell.m; sourceTree = "<group>"; };
 		0C337AEE1853D85A0097C898 /* GPSResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSResult.h; sourceTree = "<group>"; };
 		0C337AEF1853D85A0097C898 /* GPSResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSResult.m; sourceTree = "<group>"; };
+		0CF9D4F3185E4F7500685BA7 /* preloader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = preloader.gif; sourceTree = "<group>"; };
+		0CF9D4F5185E580F00685BA7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		505A0BD9B5C2426DA9786437 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A226ADB56F734B9FBDF7F7A0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CF9D4F6185E580F00685BA7 /* CoreLocation.framework in Frameworks */,
 				0C337AB21853AC670097C898 /* CoreGraphics.framework in Frameworks */,
 				0C337AB41853AC670097C898 /* UIKit.framework in Frameworks */,
 				0C337AB01853AC670097C898 /* Foundation.framework in Frameworks */,
@@ -120,6 +125,7 @@
 		0C337AAE1853AC670097C898 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0CF9D4F5185E580F00685BA7 /* CoreLocation.framework */,
 				0C337AAF1853AC670097C898 /* Foundation.framework */,
 				0C337AB11853AC670097C898 /* CoreGraphics.framework */,
 				0C337AB31853AC670097C898 /* UIKit.framework */,
@@ -152,6 +158,7 @@
 		0C337AB61853AC670097C898 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0CF9D4F3185E4F7500685BA7 /* preloader.gif */,
 				0C27FA931855168A00AE47C5 /* placeholder_icon.png */,
 				0C337AB71853AC670097C898 /* GooglePlacesSearch-Info.plist */,
 				0C337AB81853AC670097C898 /* InfoPlist.strings */,
@@ -279,6 +286,7 @@
 				0C337ABA1853AC670097C898 /* InfoPlist.strings in Resources */,
 				0C27FA941855168A00AE47C5 /* placeholder_icon.png in Resources */,
 				0C337AC21853AC670097C898 /* Images.xcassets in Resources */,
+				0CF9D4F4185E4F7500685BA7 /* preloader.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

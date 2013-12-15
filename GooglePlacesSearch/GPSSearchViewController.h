@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface GPSSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface GPSSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
