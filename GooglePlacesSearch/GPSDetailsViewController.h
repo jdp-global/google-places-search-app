@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface GPSDetailsViewController : UIViewController
+#import "GPSResult.h"
+@interface GPSDetailsViewController : UIViewController {
+    GPSResult* detailItem;
+}
+@property (retain, nonatomic) GPSResult* detailItem;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameFld;
+@property (weak, nonatomic) IBOutlet UILabel *distanceFld;
+@property (weak, nonatomic) IBOutlet UILabel *ratingFld;
 
 @end

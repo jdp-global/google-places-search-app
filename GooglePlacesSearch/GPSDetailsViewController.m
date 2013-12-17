@@ -7,12 +7,30 @@
 //
 
 #import "GPSDetailsViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface GPSDetailsViewController ()
 
 @end
 
 @implementation GPSDetailsViewController
+@synthesize detailItem, imageView, nameFld, distanceFld, ratingFld;
+
+
+-(void) setDetailItem:(GPSResult *)item {
+    if (detailItem != item) {
+        detailItem = item;
+    }
+    
+    [self configureView];
+}
+
+-(void) configureView {
+    [self.imageView setImageWithURL:detailItem.iconUrl  placeholderImage:[UIImage imageNamed:@"placeholder_icon"]];
+    [self.nameFld setText:detailItem.name];
+    [self.distanceFld setText:[NSString stringWithFormat:@"%.2f m", [detailItem.distance doubleValue]] ];
+    [self.ratingFld setText:[detailItem.rating stringValue]];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +45,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self configureView];
 }
 
 - (void)didReceiveMemoryWarning
