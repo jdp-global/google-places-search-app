@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C21112F186083D500065F22 /* GPSDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C21112E186083D500065F22 /* GPSDetailsViewController.m */; };
 		0C27FA941855168A00AE47C5 /* placeholder_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C27FA931855168A00AE47C5 /* placeholder_icon.png */; };
 		0C27FA9718565E3C00AE47C5 /* GPSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27FA9618565E3C00AE47C5 /* GPSHelper.m */; };
 		0C337AB01853AC670097C898 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C337AAF1853AC670097C898 /* Foundation.framework */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C21112D186083D500065F22 /* GPSDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSDetailsViewController.h; sourceTree = "<group>"; };
+		0C21112E186083D500065F22 /* GPSDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSDetailsViewController.m; sourceTree = "<group>"; };
 		0C27FA931855168A00AE47C5 /* placeholder_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder_icon.png; sourceTree = SOURCE_ROOT; };
 		0C27FA9518565E3C00AE47C5 /* GPSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSHelper.h; sourceTree = "<group>"; };
 		0C27FA9618565E3C00AE47C5 /* GPSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSHelper.m; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				0C337AE11853B9540097C898 /* GPSSearchViewController.m */,
 				0C337AE61853D2CB0097C898 /* GPSResultsTableViewController.h */,
 				0C337AE71853D2CB0097C898 /* GPSResultsTableViewController.m */,
+				0C21112D186083D500065F22 /* GPSDetailsViewController.h */,
+				0C21112E186083D500065F22 /* GPSDetailsViewController.m */,
 			);
 			path = GooglePlacesSearch;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				0C337AE21853B9540097C898 /* GPSSearchViewController.m in Sources */,
 				0C337AE81853D2CB0097C898 /* GPSResultsTableViewController.m in Sources */,
 				0C337ABC1853AC670097C898 /* main.m in Sources */,
+				0C21112F186083D500065F22 /* GPSDetailsViewController.m in Sources */,
 				0C337AF01853D85A0097C898 /* GPSResult.m in Sources */,
 				0C337AC01853AC670097C898 /* GPSAppDelegate.m in Sources */,
 				0C337AEC1853D36A0097C898 /* GPSResultsCell.m in Sources */,
