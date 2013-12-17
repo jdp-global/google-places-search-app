@@ -10,6 +10,7 @@
 #import "GPSResult.h"
 #import "GPSResultsCell.h"
 #import "UIImageView+WebCache.h"
+#import "GPSDetailsViewController.h"
 
 @interface GPSResultsTableViewController ()
 
@@ -37,21 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    resultSet = [[NSMutableArray alloc] init];
-//    
-//    GPSResult* resultObject = [[GPSResult alloc] init];
-//    resultObject.name = @"name";
-//    resultObject.rating = [[NSDecimalNumber alloc] initWithDouble:3.3];
-//    resultObject.iconUrl = [NSURL URLWithString:@"http://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"];
-//    resultObject.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
-//    
-//    [resultSet addObject:resultObject];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -149,10 +135,11 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"showChannelsList"]) {
+    if ([[segue identifier] isEqualToString:@"searchResultDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        NSDate *object = _filteredData[indexPath.row];
-//        [[segue destinationViewController] setDetailItem:object];
+
+        GPSResult* object = [resultSet objectAtIndex:indexPath.row];
+        [[segue destinationViewController] setDetailItem:object];
     }
 
 }
