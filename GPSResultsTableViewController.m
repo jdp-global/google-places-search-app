@@ -83,7 +83,7 @@
     // Configure the cell...
     cell.name.text = resultObj.name;
     cell.rating.text = [NSString stringWithFormat:@"%.1lf", [resultObj.rating doubleValue]];
-    cell.distance.text = [NSString stringWithFormat:@"%.1lf", [resultObj.distance doubleValue]];
+    cell.distance.text = [[NSString stringWithFormat:@"%.1lf", [resultObj.distance doubleValue]] stringByAppendingString:@" m"];
 
     NSURL* imageUrl = [resultObj iconUrl];
 
@@ -141,7 +141,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -149,8 +149,14 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"showChannelsList"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        NSDate *object = _filteredData[indexPath.row];
+//        [[segue destinationViewController] setDetailItem:object];
+    }
+
 }
 
- */
+
 
 @end

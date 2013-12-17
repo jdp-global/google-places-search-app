@@ -256,13 +256,18 @@
         [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
             [data removeAllObjects];
+
             if ([responseObject[@"status"] isEqualToString:@"OK"]) {
                 for (id obj in responseObject[@"results"]) {
+                    double lat = [obj[@"geometry"][@"location"][@"lat"] doubleValue];
+                    double lng = [obj[@"geometry"][@"location"][@"lng"] doubleValue];
+
+                    CLLocation *resultLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
                     GPSResult *resultObj = [[GPSResult alloc] init];
                     resultObj.iconUrl = obj[@"icon"];
                     resultObj.name = obj[@"name"];
                     resultObj.rating = obj[@"rating"];
-                    resultObj.distance = [[NSDecimalNumber alloc] initWithDouble:3.0];
+                    resultObj.distance = [[NSDecimalNumber alloc] initWithDouble:[resultLocation distanceFromLocation:currentLocation]];
                     [data addObject:resultObj];
                 }
                 [self performSegueWithIdentifier:@"submitSearch" sender:self];
