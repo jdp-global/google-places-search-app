@@ -111,6 +111,7 @@
                                     <outlet property="icon" destination="Qr6-FC-66Z" id="cxo-rF-Bmv"/>
                                     <outlet property="name" destination="QAo-us-na4" id="kwA-sY-T2Q"/>
                                     <outlet property="rating" destination="Dqr-G4-8yd" id="0q5-PD-sVh"/>
+                                    <segue destination="WwC-fC-Hne" kind="push" identifier="searchResultDetails" id="03d-Pq-pfj"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -141,6 +142,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="JaM-gW-F40"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSW-mf-IH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
