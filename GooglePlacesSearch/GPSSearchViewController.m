@@ -234,7 +234,7 @@
         types = [types lowercaseString];
     }
     
-    if (currentLocation != nil) {
+    if (currentLocation.coordinate.latitude && currentLocation.coordinate.longitude) {
         location = [NSString stringWithFormat:@"%.6f,%.6f",
                     currentLocation.coordinate.latitude,
                     currentLocation.coordinate.longitude];
