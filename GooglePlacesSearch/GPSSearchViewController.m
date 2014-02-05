@@ -12,9 +12,9 @@
 
 
 @interface GPSSearchViewController ()
-@property (retain, nonatomic) NSArray* cellData;
-@property (retain, nonatomic) NSMutableDictionary* selectedCells;
-@property (retain) UIView *disableViewOverlay;
+@property (strong, nonatomic) NSArray* cellData;
+@property (strong, nonatomic) NSMutableDictionary* selectedCells;
+@property (strong) UIView *disableViewOverlay;
 @property CLLocationManager* locationManager;
 @property CLLocation* currentLocation;
 @end
@@ -29,7 +29,7 @@
     selectedCells = [[NSMutableDictionary alloc] init];
     currentLocation = [[CLLocation alloc] init];
     
-    cellData  = [NSArray arrayWithObjects: @"Bank", @"Cafe", @"Gym", nil];
+    cellData  = [NSArray arrayWithObjects: @"Bank1", @"Cafe", @"Gym",@"Bank2", @"Cafe", @"Gym",@"Bank3", @"Cafe", @"Gym",@"Bank", @"Cafe", @"Gym",@"Bank", @"Cafe", @"Gym", nil];
     self.tableView.allowsMultipleSelection = YES;
     self.searchField.delegate = self;
     
@@ -74,7 +74,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 3;
+    return [cellData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -115,6 +115,8 @@
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     UITableViewCell *thisCell = [tableView cellForRowAtIndexPath:indexPath];
     
     thisCell = [self checkOrUncheckTableCell:thisCell withIndex:indexPath];
@@ -253,6 +255,7 @@
                          location,
                          types,
                          name];
+        NSLog(@"%@", url);
         [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
             [data removeAllObjects];
